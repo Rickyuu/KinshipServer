@@ -1,0 +1,1 @@
+It is the server side of the Android application Kinship.
