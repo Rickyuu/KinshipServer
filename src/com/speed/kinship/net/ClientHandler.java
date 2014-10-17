@@ -8,6 +8,8 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 import com.speed.kinship.model.Identity;
+import com.speed.kinship.model.Pic;
+import com.speed.kinship.util.ObjectByteHelper;
 
 public class ClientHandler implements Runnable {
 
@@ -59,8 +61,13 @@ public class ClientHandler implements Runnable {
 			Identity identity = (Identity) arguments.getArgument("identity");
 			System.out.println(username + " " + password + " " + identity);
 			return true;
-		} else if(methodName.equals(Constants.LOGIN)) {
-			
+		} else if(methodName.equals("uploadpic")) {
+			Arguments arguments = methodMessage.getArguments();
+			Pic pic = (Pic) arguments.getArgument("pic");
+			byte[] picBytes = pic.getContent();
+			Pic result = new Pic(picBytes);
+			System.out.println("upload got");
+			return result;
 		}
 		return null;
 	}

@@ -8,6 +8,7 @@ public class ServerListener {
 	
 	public static void main(String args[]) {
 		try {
+			System.out.println("server start");
 			@SuppressWarnings("resource")
 			ServerSocket serverSocket = new ServerSocket(Constants.PORT_NUM);
 			while(true) {
