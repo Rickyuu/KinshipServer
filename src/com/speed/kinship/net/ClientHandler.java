@@ -6,9 +6,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.Date;
 
+import com.speed.kinship.controller.MemoryHandler;
+import com.speed.kinship.controller.StateHandler;
+import com.speed.kinship.controller.ThingHandler;
+import com.speed.kinship.controller.UserHandler;
+import com.speed.kinship.controller.impl.MemoryHandlerImpl;
+import com.speed.kinship.controller.impl.StateHandlerImpl;
+import com.speed.kinship.controller.impl.ThingHandlerImpl;
+import com.speed.kinship.controller.impl.UserHandlerImpl;
 import com.speed.kinship.model.Identity;
-import com.speed.kinship.model.Pic;
+import com.speed.kinship.model.User;
 import com.speed.kinship.util.ObjectByteHelper;
 
 public class ClientHandler implements Runnable {
@@ -59,16 +68,87 @@ public class ClientHandler implements Runnable {
 			String username = (String) arguments.getArgument("username");
 			String password = (String) arguments.getArgument("password");
 			Identity identity = (Identity) arguments.getArgument("identity");
-			System.out.println(username + " " + password + " " + identity);
-			return true;
-		} else if(methodName.equals("uploadpic")) {
+			UserHandler userHandler = new UserHandlerImpl();
+			return userHandler.register(username, password, identity);
+		} else if(methodName.equals(Constants.LOGIN)) {
 			Arguments arguments = methodMessage.getArguments();
-			Pic pic = (Pic) arguments.getArgument("pic");
-			byte[] picBytes = pic.getContent();
-			Pic result = new Pic(picBytes);
-			System.out.println("upload got");
-			return result;
+			String username = (String) arguments.getArgument("username");
+			String password = (String) arguments.getArgument("password");
+			Identity identity = (Identity) arguments.getArgument("identity");
+			UserHandler userHandler = new UserHandlerImpl();
+			return userHandler.login(username, password, identity);
+		}  else if(methodName.equals(Constants.GET_FIRST_N_STATES)) {
+			Arguments arguments = methodMessage.getArguments();
+			String username = (String) arguments.getArgument("username");
+			int n = (int) arguments.getArgument("n");
+			StateHandler stateHandler = new StateHandlerImpl();
+			return stateHandler.getFirstNStates(username, n);
+		} else if(methodName.equals(Constants.GET_NEXT_N_STATES)) {
+			Arguments arguments = methodMessage.getArguments();
+			String username = (String) arguments.getArgument("username");
+			int startId = (int) arguments.getArgument("startId");
+			int n = (int) arguments.getArgument("n");
+			StateHandler stateHandler = new StateHandlerImpl();
+			return stateHandler.getNextNStates(username, startId, n);
+		} else if(methodName.equals(Constants.ADD_STATE)) {
+			Arguments arguments = methodMessage.getArguments();
+			User user = (User) arguments.getArgument("user");
+			Date time = (Date) arguments.getArgument("time");
+			String content = (String) arguments.getArgument("content");
+			byte[] pic = (byte[]) arguments.getArgument("pic");
+			StateHandler stateHandler = new StateHandlerImpl();
+			return stateHandler.addState(user, time, content, pic);
+		} else if(methodName.equals(Constants.ADD_FEEDBACK)) {
+			Arguments arguments = methodMessage.getArguments();
+			int stateId = (int) arguments.getArgument("stateId");
+			User feedbackCreator = (User) arguments.getArgument("feedbackCreator");
+			String feedback = (String) arguments.getArgument("feedback");
+			StateHandler stateHandler = new StateHandlerImpl();
+			return stateHandler.addFeedback(stateId, feedbackCreator, feedback);
+		} else if(methodName.equals(Constants.GET_FIRST_N_THINGS)) {
+			Arguments arguments = methodMessage.getArguments();
+			String username = (String) arguments.getArgument("username");
+			int n = (int) arguments.getArgument("n");
+			ThingHandler thingHandler = new ThingHandlerImpl();
+			return thingHandler.getFirstNThings(username, n);
+		} else if(methodName.equals(Constants.GET_NEXT_N_THINGS)) {
+			Arguments arguments = methodMessage.getArguments();
+			String username = (String) arguments.getArgument("username");
+			int startId = (int) arguments.getArgument("startId");
+			int n = (int) arguments.getArgument("n");
+			ThingHandler thingHandler = new ThingHandlerImpl();
+			return thingHandler.getNextNThings(username, startId, n);
+		} else if(methodName.equals(Constants.ADD_THING)) {
+			Arguments arguments = methodMessage.getArguments();
+			User user = (User) arguments.getArgument("user");
+			String title = (String) arguments.getArgument("title");
+			Date time = (Date) arguments.getArgument("time");
+			String content = (String) arguments.getArgument("content");
+			byte[] pic = (byte[]) arguments.getArgument("pic");
+			ThingHandler thingHandler = new ThingHandlerImpl();
+			return thingHandler.addThing(user, title, time, content, pic);
+		} else if(methodName.equals(Constants.GET_FIRST_N_MEMORIES)) {
+			Arguments arguments = methodMessage.getArguments();
+			String username = (String) arguments.getArgument("username");
+			int n = (int) arguments.getArgument("n");
+			MemoryHandler memoryHandler = new MemoryHandlerImpl();
+			return memoryHandler.getFirstNMemories(username, n);
+		} else if(methodName.equals(Constants.GET_NEXT_N_MEMORIES)) {
+			Arguments arguments = methodMessage.getArguments();
+			String username = (String) arguments.getArgument("username");
+			int startId = (int) arguments.getArgument("startId");
+			int n = (int) arguments.getArgument("n");
+			MemoryHandler memoryHandler = new MemoryHandlerImpl();
+			return memoryHandler.getNextNMemories(username, startId, n);
+		} else if(methodName.equals(Constants.ADD_MEMORY)) {
+			Arguments arguments = methodMessage.getArguments();
+			User user = (User) arguments.getArgument("user");
+			Date time = (Date) arguments.getArgument("time");
+			String content = (String) arguments.getArgument("content");
+			MemoryHandler memoryHandler = new MemoryHandlerImpl();
+			return memoryHandler.addMemory(user, time, content);
 		}
+		
 		return null;
 	}
 
