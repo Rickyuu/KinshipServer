@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="userOperation">
     <select id="queryUserById" parameterType="int" resultType="User">
-        select * from User where id=#{id}
+        select * from User where id=#{userId}
     </select>
     <select id="queryUserByName" parameterType="String" resultType="User">
         select * from User where userName=#{userName}

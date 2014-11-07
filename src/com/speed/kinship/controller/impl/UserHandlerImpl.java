@@ -25,7 +25,7 @@ public class UserHandlerImpl implements UserHandler {
 	public User register(String username, String password, Identity identity) {
 		UserDao userDao = new UserDaoImpl();
 		List<User> users = userDao.queryUserByName(username);
-		if(users != null) {
+		if(users != null && users.size() != 0) {
 			return null;
 		}
 		Identity[] identities = Identity.values();

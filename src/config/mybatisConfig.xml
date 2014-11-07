@@ -28,5 +28,6 @@
         <mapper resource="mapper/State.xml" />
         <mapper resource="mapper/Thing.xml" />
         <mapper resource="mapper/Memory.xml" />
+        <mapper resource="mapper/Feedback.xml" />
     </mappers>
 </configuration>

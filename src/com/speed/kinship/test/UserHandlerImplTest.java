@@ -13,12 +13,6 @@ public class UserHandlerImplTest {
 	UserHandlerImpl userHandlerImpl = new UserHandlerImpl();
 	
 	@Test
-	public void testRegister() {
-		User user = userHandlerImpl.register("rickyuu", "123", Identity.CHILD);
-		assertEquals(null, user);
-	}
-	
-	@Test
 	public void testLogin1() {
 		User user = userHandlerImpl.login("rickyuu", "123", Identity.PARENT);
 		assertNotEquals(null, user);

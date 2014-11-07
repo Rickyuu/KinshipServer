@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="feedbackOperation">
+    
+    <select id="queryFeedbackById" parameterType="int" resultMap="ResultFeedbackMap">
+        select * from Feedback where id=#{id} 
+    </select>
+    
+    <insert id="insertFeedback" parameterType="Map" useGeneratedKeys="true" keyProperty="id">
+        insert into Feedback (userId, content, stateId)
+        values (#{userId}, #{content}, #{stateId})
+    </insert>
+     
+	<select id="queryFeedbacksByStateId" resultMap="ResultFeedbackMap">  
+    	select * from Feedback where stateId = #{stateId}  
+	</select>
+	
+	<resultMap type="Feedback" id="ResultFeedbackMap">  
+    	<result property="id" column="id" />
+    	<result property="content" column="content"/>
+    	<association property="creator" select="userOperation.queryUserById"  
+        	column="userId" /> 
+	</resultMap>
+	
+</mapper>

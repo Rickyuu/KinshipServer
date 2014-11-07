@@ -2,25 +2,51 @@ package com.speed.kinship.dao.impl;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import com.speed.kinship.dao.StateDao;
+import com.speed.kinship.model.State;
 import com.speed.kinship.util.MyBatisUtils;
 
 public class StateDaoImpl implements StateDao {
 
 	@Override
 	public int insertState(int userId, Date time, String content, byte[] pic) {
-		Map<String, Object> argMap = new HashMap<String, Object>();
-		argMap.put("userId", userId);
-		argMap.put("time", time);
-		argMap.put("content", content);
-		argMap.put("pic", pic);
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("userId", userId);
+		param.put("time", time);
+		param.put("content", content);
+		param.put("pic", pic);
 		SqlSession session = MyBatisUtils.getSqlSession();
-		// TODO
-		return 0;
+		int result = session.insert("stateOperation.insertState", param);
+		MyBatisUtils.closeSession(session);
+		return result;
+	}
+
+	@Override
+	public List<State> queryFirstNStatesByUserName(String userName, int n) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("userName", userName);
+		param.put("n", n);
+		SqlSession session = MyBatisUtils.getSqlSession();
+		List<State> results = session.selectList("stateOperation.queryFirstNStatesByUserName", param);
+		MyBatisUtils.closeSession(session);
+		return results;
+	}
+
+	@Override
+	public List<State> queryNextNStatesByUserName(String userName, int startId, int n) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("userName", userName);
+		param.put("startId", startId);
+		param.put("n", n);
+		SqlSession session = MyBatisUtils.getSqlSession();
+		List<State> results = session.selectList("stateOperation.queryNextNStatesByUserName", param);
+		MyBatisUtils.closeSession(session);
+		return results;
 	}
 
 }

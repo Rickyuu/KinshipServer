@@ -3,17 +3,40 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="stateOperation">
-    <select id="queryStateById" parameterType="int" resultType="State">
-        select * from User where id=#{id}
+    
+    <select id="queryFirstNStatesByUserName" parameterType="Map" resultMap="ResultStateMap">
+        select 
+        	State.id stateId, time, content, pic, User.id userId, userName, password, identity 
+        from State inner join User on State.userId=User.id
+        	where userName=#{userName} order by time desc limit #{n}
     </select>
-    <select id="queryUserByName" parameterType="String" resultType="User">
-        select * from User where userName=#{userName}
+    
+    <select id="queryNextNStatesByUserName" parameterType="Map" resultMap="ResultStateMap">
+        select 
+        	State.id stateId, time, content, pic, User.id userId, userName, password, identity 
+        from State inner join User on State.userId=User.id
+        	where userName=#{userName} and State.id  &lt; #{startId} order by time desc limit #{n}
     </select>
-    <select id="queryUserByNamePassIdentity" parameterType="User" resultType="User">
-        select * from User where userName=#{userName} and password=#{password} and identity=#{identity}
-    </select>
-    <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
-        insert into User (userName, password, identity)
-        values (#{userName}, #{password}, #{identity})
+    
+    <insert id="insertState" parameterType="Map" useGeneratedKeys="true" keyProperty="id">
+        insert into State (userId, time, content, pic)
+        values (#{userId}, #{time}, #{content}, #{pic})
     </insert>
+	
+    <resultMap type="State" id="ResultStateMap">  
+    	<id property="id" column="stateId" />
+    	<result property="time" column="time"/> 
+    	<result property="content" column="content"/>
+    	<result property="pic" column="pic"/>
+    	<association property="creator" resultMap="ResultUserMap" />
+    	<association property="feedbacks" select="feedbackOperation.queryFeedbacksByStateId"  
+        	column="stateId" />  
+	</resultMap>
+	<resultMap type="User" id="ResultUserMap">
+        <id column="visitorId" property="id" />
+        <result column="userName" property="userName" />
+        <result column="password" property="password" />
+        <result column="identity" property="identity" />
+    </resultMap>
+    
 </mapper>
