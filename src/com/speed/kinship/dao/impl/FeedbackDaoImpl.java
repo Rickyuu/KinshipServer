@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.speed.kinship.dao.FeedbackDao;
-import com.speed.kinship.model.Feedback;
 import com.speed.kinship.util.MyBatisUtils;
 
 public class FeedbackDaoImpl implements FeedbackDao {
@@ -21,14 +20,6 @@ public class FeedbackDaoImpl implements FeedbackDao {
 		int result = session.insert("feedbackOperation.insertFeedback", param);
 		MyBatisUtils.closeSession(session);
 		return result;
-	}
-
-	@Override
-	public Feedback queryFeedbackById(int id) {
-		SqlSession session = MyBatisUtils.getSqlSession();
-		Feedback feedback = session.selectOne("feedbackOperation.queryFeedbackById", 1);
-		MyBatisUtils.closeSession(session);
-		return feedback;
 	}
 
 }

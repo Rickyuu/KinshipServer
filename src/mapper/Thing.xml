@@ -2,6 +2,40 @@
 <!DOCTYPE mapper 
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ThingOperation">
-
+<mapper namespace="thingOperation">
+    
+    <select id="queryFirstNThingsByUserName" parameterType="Map" resultMap="ResultThingMap">
+        select 
+        	Thing.id thingId, title, time, content, pic, User.id userId, userName, password, identity 
+        from Thing inner join User on Thing.userId=User.id
+        	where userName=#{userName} order by time desc limit #{n}
+    </select>
+    
+    <select id="queryNextNThingsByUserName" parameterType="Map" resultMap="ResultThingMap">
+        select 
+        	Thing.id thingId, title, time, content, pic, User.id userId, userName, password, identity 
+        from Thing inner join User on Thing.userId=User.id
+        	where userName=#{userName} and time &lt; #{startTime} order by time desc limit #{n}
+    </select>
+    
+    <insert id="insertThing" parameterType="Map" useGeneratedKeys="true" keyProperty="id">
+        insert into Thing (userId, title, time, content, pic)
+        values (#{userId}, #{title}, #{time}, #{content}, #{pic})
+    </insert>
+    
+    <resultMap type="Thing" id="ResultThingMap">  
+    	<id property="id" column="thingId" />
+    	<result property="title" column="title"/>
+    	<result property="time" column="time"/> 
+    	<result property="content" column="content"/>
+    	<result property="pic" column="pic"/>
+    	<association property="creator" resultMap="ResultUserMap" /> 
+	</resultMap>
+	<resultMap type="User" id="ResultUserMap">
+        <id column="userId" property="id" />
+        <result column="userName" property="userName" />
+        <result column="password" property="password" />
+        <result column="identity" property="identity" />
+    </resultMap>
+    
 </mapper>

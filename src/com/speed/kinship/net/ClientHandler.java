@@ -114,10 +114,10 @@ public class ClientHandler implements Runnable {
 		} else if(methodName.equals(Constants.GET_NEXT_N_THINGS)) {
 			Arguments arguments = methodMessage.getArguments();
 			String username = (String) arguments.getArgument("username");
-			int startId = (int) arguments.getArgument("startId");
+			Date startTime = (Date) arguments.getArgument("startTime");
 			int n = (int) arguments.getArgument("n");
 			ThingHandler thingHandler = new ThingHandlerImpl();
-			return thingHandler.getNextNThings(username, startId, n);
+			return thingHandler.getNextNThings(username, startTime, n);
 		} else if(methodName.equals(Constants.ADD_THING)) {
 			Arguments arguments = methodMessage.getArguments();
 			User user = (User) arguments.getArgument("user");
@@ -130,16 +130,8 @@ public class ClientHandler implements Runnable {
 		} else if(methodName.equals(Constants.GET_FIRST_N_MEMORIES)) {
 			Arguments arguments = methodMessage.getArguments();
 			String username = (String) arguments.getArgument("username");
-			int n = (int) arguments.getArgument("n");
 			MemoryHandler memoryHandler = new MemoryHandlerImpl();
-			return memoryHandler.getFirstNMemories(username, n);
-		} else if(methodName.equals(Constants.GET_NEXT_N_MEMORIES)) {
-			Arguments arguments = methodMessage.getArguments();
-			String username = (String) arguments.getArgument("username");
-			int startId = (int) arguments.getArgument("startId");
-			int n = (int) arguments.getArgument("n");
-			MemoryHandler memoryHandler = new MemoryHandlerImpl();
-			return memoryHandler.getNextNMemories(username, startId, n);
+			return memoryHandler.getAllMemories(username);
 		} else if(methodName.equals(Constants.ADD_MEMORY)) {
 			Arguments arguments = methodMessage.getArguments();
 			User user = (User) arguments.getArgument("user");

@@ -4,10 +4,6 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="feedbackOperation">
     
-    <select id="queryFeedbackById" parameterType="int" resultMap="ResultFeedbackMap">
-        select * from Feedback where id=#{id} 
-    </select>
-    
     <insert id="insertFeedback" parameterType="Map" useGeneratedKeys="true" keyProperty="id">
         insert into Feedback (userId, content, stateId)
         values (#{userId}, #{content}, #{stateId})

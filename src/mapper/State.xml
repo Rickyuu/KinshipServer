@@ -8,14 +8,14 @@
         select 
         	State.id stateId, time, content, pic, User.id userId, userName, password, identity 
         from State inner join User on State.userId=User.id
-        	where userName=#{userName} order by time desc limit #{n}
+        	where userName=#{userName} order by stateId desc limit #{n}
     </select>
     
     <select id="queryNextNStatesByUserName" parameterType="Map" resultMap="ResultStateMap">
         select 
         	State.id stateId, time, content, pic, User.id userId, userName, password, identity 
         from State inner join User on State.userId=User.id
-        	where userName=#{userName} and State.id  &lt; #{startId} order by time desc limit #{n}
+        	where userName=#{userName} and State.id  &lt; #{startId} order by stateId desc limit #{n}
     </select>
     
     <insert id="insertState" parameterType="Map" useGeneratedKeys="true" keyProperty="id">
@@ -33,7 +33,7 @@
         	column="stateId" />  
 	</resultMap>
 	<resultMap type="User" id="ResultUserMap">
-        <id column="visitorId" property="id" />
+        <id column="userId" property="id" />
         <result column="userName" property="userName" />
         <result column="password" property="password" />
         <result column="identity" property="identity" />

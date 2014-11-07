@@ -2,6 +2,31 @@
 <!DOCTYPE mapper 
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="MemoryOperation">
+<mapper namespace="memoryOperation">
 
+    <select id="queryMemoriesByUserName" parameterType="String" resultMap="ResultMemoryMap">
+        select 
+        	Memory.id memoryId, content, time, User.id userId, userName, password, identity 
+        from Memory inner join User on Memory.userId=User.id
+        	where userName=#{userName} order by time desc
+    </select>
+    
+    <insert id="insertMemory" parameterType="Map" useGeneratedKeys="true" keyProperty="id">
+        insert into Memory (userId, content, time)
+        values (#{userId}, #{content}, #{time})
+    </insert>
+    
+    <resultMap type="Memory" id="ResultMemoryMap">  
+    	<id property="id" column="memoryId" />
+    	<result property="content" column="content"/>
+    	<result property="time" column="time"/>
+    	<association property="creator" resultMap="ResultUserMap" /> 
+	</resultMap>
+	<resultMap type="User" id="ResultUserMap">
+        <id column="userId" property="id" />
+        <result column="userName" property="userName" />
+        <result column="password" property="password" />
+        <result column="identity" property="identity" />
+    </resultMap>
+    
 </mapper>

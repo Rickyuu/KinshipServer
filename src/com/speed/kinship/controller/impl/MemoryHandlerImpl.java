@@ -4,27 +4,30 @@ import java.util.Date;
 import java.util.List;
 
 import com.speed.kinship.controller.MemoryHandler;
+import com.speed.kinship.dao.MemoryDao;
+import com.speed.kinship.dao.impl.MemoryDaoImpl;
 import com.speed.kinship.model.Memory;
 import com.speed.kinship.model.User;
 
 public class MemoryHandlerImpl implements MemoryHandler {
 
 	@Override
-	public List<Memory> getFirstNMemories(String username, int n) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Memory> getNextNMemories(String username, int startId, int n) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Memory> getAllMemories(String username) {
+		MemoryDao memoryDao = new MemoryDaoImpl();
+		List<Memory> memories = memoryDao.queryMemoriesByUserName(username);
+		return memories;
 	}
 
 	@Override
 	public Memory addMemory(User user, Date time, String content) {
-		// TODO Auto-generated method stub
-		return null;
+		MemoryDao memoryDao = new MemoryDaoImpl();
+		int id = memoryDao.insertMemory(user.getId(), time, content);
+		Memory memory = new Memory();
+		memory.setId(id);
+		memory.setCreator(user);
+		memory.setTime(time);
+		memory.setContent(content);
+		return memory;
 	}
 
 }
