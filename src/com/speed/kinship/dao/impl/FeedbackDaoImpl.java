@@ -22,4 +22,16 @@ public class FeedbackDaoImpl implements FeedbackDao {
 		return result;
 	}
 
+	@Override
+	public boolean deleteFeedback(int feedbackId) {
+		SqlSession session = MyBatisUtils.getSqlSession();
+		int result = session.delete("feedbackOperation.deleteFeedback", feedbackId);
+		MyBatisUtils.closeSession(session);
+		if(result != 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

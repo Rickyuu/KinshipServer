@@ -22,6 +22,10 @@
         insert into State (userId, time, content, pic)
         values (#{userId}, #{time}, #{content}, #{pic})
     </insert>
+    
+    <delete id="deleteState" parameterType="int">
+        delete a, b from State a, Feedback b where a.id=b.stateId and a.id=#{stateId} 
+    </delete>
 	
     <resultMap type="State" id="ResultStateMap">  
     	<id property="id" column="stateId" />

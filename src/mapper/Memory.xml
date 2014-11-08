@@ -16,6 +16,10 @@
         values (#{userId}, #{content}, #{time})
     </insert>
     
+    <delete id="deleteMemory" parameterType="int">
+        delete from Memory where id=#{memoryId}
+    </delete>
+    
     <resultMap type="Memory" id="ResultMemoryMap">  
     	<id property="id" column="memoryId" />
     	<result property="content" column="content"/>

@@ -104,6 +104,16 @@ public class ClientHandler implements Runnable {
 			String feedback = (String) arguments.getArgument("feedback");
 			StateHandler stateHandler = new StateHandlerImpl();
 			return stateHandler.addFeedback(stateId, feedbackCreator, feedback);
+		} else if(methodName.equals(Constants.DELETE_STATE)) {
+			Arguments arguments = methodMessage.getArguments();
+			int stateId = (int) arguments.getArgument("stateId");
+			StateHandler stateHandler = new StateHandlerImpl();
+			return stateHandler.deleteState(stateId);
+		} else if(methodName.equals(Constants.DELETE_FEEDBACK)) {
+			Arguments arguments = methodMessage.getArguments();
+			int feedbackId = (int) arguments.getArgument("feedbackId");
+			StateHandler stateHandler = new StateHandlerImpl();
+			return stateHandler.deleteFeedback(feedbackId);
 		} else if(methodName.equals(Constants.GET_FIRST_N_THINGS)) {
 			Arguments arguments = methodMessage.getArguments();
 			String username = (String) arguments.getArgument("username");
@@ -126,6 +136,11 @@ public class ClientHandler implements Runnable {
 			byte[] pic = (byte[]) arguments.getArgument("pic");
 			ThingHandler thingHandler = new ThingHandlerImpl();
 			return thingHandler.addThing(user, title, time, content, pic);
+		} else if(methodName.equals(Constants.DELETE_THING)) {
+			Arguments arguments = methodMessage.getArguments();
+			int thingId = (int) arguments.getArgument("thingId");
+			ThingHandler thingHandler = new ThingHandlerImpl();
+			return thingHandler.deleteThing(thingId);
 		} else if(methodName.equals(Constants.GET_ALL_MEMORIES)) {
 			Arguments arguments = methodMessage.getArguments();
 			String username = (String) arguments.getArgument("username");
@@ -138,6 +153,11 @@ public class ClientHandler implements Runnable {
 			String content = (String) arguments.getArgument("content");
 			MemoryHandler memoryHandler = new MemoryHandlerImpl();
 			return memoryHandler.addMemory(user, time, content);
+		} else if(methodName.equals(Constants.DELETE_MEMORY)) {
+			Arguments arguments = methodMessage.getArguments();
+			int memoryId = (int) arguments.getArgument("memoryId");
+			MemoryHandler memoryHandler = new MemoryHandlerImpl();
+			return memoryHandler.deleteMemory(memoryId);
 		}
 		
 		return null;

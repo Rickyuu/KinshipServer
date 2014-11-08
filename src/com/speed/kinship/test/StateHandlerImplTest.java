@@ -29,5 +29,11 @@ public class StateHandlerImplTest {
 		Feedback feedback = stateHandlerImpl.addFeedback(2, user, "interesting....");
 		assertEquals(8, feedback.getCreator().getId());
 	}
+	
+	@Test
+	public void testDeleteState() {
+		boolean result = stateHandlerImpl.deleteState(10);
+		assertEquals(true, result);
+	}
 
 }

@@ -50,4 +50,16 @@ public class ThingDaoImpl implements ThingDao {
 		return results;
 	}
 
+	@Override
+	public boolean deleteThing(int thingId) {
+		SqlSession session = MyBatisUtils.getSqlSession();
+		int result = session.delete("thingOperation.deleteThing", thingId);
+		MyBatisUtils.closeSession(session);
+		if(result != 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

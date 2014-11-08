@@ -47,4 +47,8 @@ public interface StateHandler {
 	 */
 	public Feedback addFeedback(int stateId, User feedbackCreator, String feedback);
 	
+	public boolean deleteState(int stateId);
+	
+	public boolean deleteFeedback(int feedbackId);
+	
 }

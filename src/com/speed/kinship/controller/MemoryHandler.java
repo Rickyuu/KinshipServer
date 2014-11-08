@@ -24,4 +24,6 @@ public interface MemoryHandler {
 	 */
 	public Memory addMemory(User user, Date time, String content);
 	
+	public boolean deleteMemory(int memoryId);
+	
 }

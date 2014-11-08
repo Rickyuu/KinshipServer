@@ -39,4 +39,6 @@ public interface ThingHandler {
 	 */
 	public Thing addThing(User user, String title, Date time, String content, byte[] pic);
 	
+	public boolean deleteThing(int thingId);
+	
 }

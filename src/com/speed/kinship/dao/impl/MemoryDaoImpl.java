@@ -33,6 +33,18 @@ public class MemoryDaoImpl implements MemoryDao {
 		return memories;
 	}
 
+	@Override
+	public boolean deleteMemory(int memoryId) {
+		SqlSession session = MyBatisUtils.getSqlSession();
+		int result = session.delete("memoryOperation.deleteMemory", memoryId);
+		MyBatisUtils.closeSession(session);
+		if(result != 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	
 	
 }

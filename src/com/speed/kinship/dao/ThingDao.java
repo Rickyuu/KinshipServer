@@ -9,6 +9,8 @@ public interface ThingDao {
 
 	public int insertThing(int userId, String title, Date time, String content, byte[] pic);
 	
+	public boolean deleteThing(int thingId);
+	
 	public List<Thing> queryFirstNThingsByUserName(String userName, int n);
 	
 	public List<Thing> queryNextNThingsByUserName(String userName, Date startTime, int n);

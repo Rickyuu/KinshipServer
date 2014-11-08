@@ -37,4 +37,10 @@ public class ThingHandlerImpl implements ThingHandler {
 		return thing;
 	}
 
+	@Override
+	public boolean deleteThing(int thingId) {
+		ThingDao thingDao = new ThingDaoImpl();
+		return thingDao.deleteThing(thingId);
+	}
+
 }

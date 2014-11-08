@@ -52,4 +52,16 @@ public class StateHandlerImpl implements StateHandler {
 		return result;
 	}
 
+	@Override
+	public boolean deleteState(int stateId) {
+		StateDao stateDao = new StateDaoImpl();
+		return stateDao.deleteState(stateId);
+	}
+
+	@Override
+	public boolean deleteFeedback(int feedbackId) {
+		FeedbackDao feedbackDao = new FeedbackDaoImpl();
+		return feedbackDao.deleteFeedback(feedbackId);
+	}
+
 }

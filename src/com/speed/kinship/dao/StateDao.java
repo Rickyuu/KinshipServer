@@ -9,6 +9,8 @@ public interface StateDao {
 
 	public int insertState(int userId, Date time, String content, byte[] pic);
 	
+	public boolean deleteState(int stateId);
+	
 	public List<State> queryFirstNStatesByUserName(String userName, int n);
 	
 	public List<State> queryNextNStatesByUserName(String userName, int startId, int n);

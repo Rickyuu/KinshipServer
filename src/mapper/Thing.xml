@@ -23,6 +23,10 @@
         values (#{userId}, #{title}, #{time}, #{content}, #{pic})
     </insert>
     
+    <delete id="deleteThing" parameterType="int">
+        delete from Thing where id=#{thingId}
+    </delete>
+    
     <resultMap type="Thing" id="ResultThingMap">  
     	<id property="id" column="thingId" />
     	<result property="title" column="title"/>

@@ -30,4 +30,10 @@ public class MemoryHandlerImpl implements MemoryHandler {
 		return memory;
 	}
 
+	@Override
+	public boolean deleteMemory(int memoryId) {
+		MemoryDao memoryDao = new MemoryDaoImpl();
+		return memoryDao.deleteMemory(memoryId);
+	}
+
 }
