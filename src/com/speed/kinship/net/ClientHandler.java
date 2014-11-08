@@ -93,11 +93,10 @@ public class ClientHandler implements Runnable {
 		} else if(methodName.equals(Constants.ADD_STATE)) {
 			Arguments arguments = methodMessage.getArguments();
 			User user = (User) arguments.getArgument("user");
-			Date time = (Date) arguments.getArgument("time");
 			String content = (String) arguments.getArgument("content");
 			byte[] pic = (byte[]) arguments.getArgument("pic");
 			StateHandler stateHandler = new StateHandlerImpl();
-			return stateHandler.addState(user, time, content, pic);
+			return stateHandler.addState(user, content, pic);
 		} else if(methodName.equals(Constants.ADD_FEEDBACK)) {
 			Arguments arguments = methodMessage.getArguments();
 			int stateId = (int) arguments.getArgument("stateId");
@@ -127,7 +126,7 @@ public class ClientHandler implements Runnable {
 			byte[] pic = (byte[]) arguments.getArgument("pic");
 			ThingHandler thingHandler = new ThingHandlerImpl();
 			return thingHandler.addThing(user, title, time, content, pic);
-		} else if(methodName.equals(Constants.GET_FIRST_N_MEMORIES)) {
+		} else if(methodName.equals(Constants.GET_ALL_MEMORIES)) {
 			Arguments arguments = methodMessage.getArguments();
 			String username = (String) arguments.getArgument("username");
 			MemoryHandler memoryHandler = new MemoryHandlerImpl();

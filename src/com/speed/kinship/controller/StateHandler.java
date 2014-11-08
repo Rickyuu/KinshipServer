@@ -1,6 +1,5 @@
 package com.speed.kinship.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import com.speed.kinship.model.Feedback;
@@ -37,7 +36,7 @@ public interface StateHandler {
 	 * @param pic
 	 * @return
 	 */
-	public State addState(User user, Date time, String content, byte[] pic);
+	public State addState(User user, String content, byte[] pic);
 	
 	/**
 	 * add a feedback for the state

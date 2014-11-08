@@ -22,8 +22,7 @@ public class Constants implements Serializable {
 	public static final String GET_NEXT_N_THINGS = "getNextNThings";
 	public static final String ADD_THING = "addThing";
 	// method name for memory handler
-	public static final String GET_FIRST_N_MEMORIES = "getFirstNMemories";
-	public static final String GET_NEXT_N_MEMORIES = "getNextNMemories";
+	public static final String GET_ALL_MEMORIES = "getAllMemories";
 	public static final String ADD_MEMORY = "addMemory";
 	
 }

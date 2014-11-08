@@ -2,8 +2,6 @@ package com.speed.kinship.test;
 
 import static org.junit.Assert.*;
 
-import java.util.Calendar;
-
 import org.junit.Test;
 
 import com.speed.kinship.controller.impl.StateHandlerImpl;
@@ -20,7 +18,7 @@ public class StateHandlerImplTest {
 		User user = new User();
 		user.setId(8);
 		byte[] pic = {'A', 'C', 'M'};
-		State state = stateHandlerImpl.addState(user, Calendar.getInstance().getTime(), "today is happy", pic);
+		State state = stateHandlerImpl.addState(user, "today is happy", pic);
 		assertEquals(8, state.getCreator().getId());
 	}
 	

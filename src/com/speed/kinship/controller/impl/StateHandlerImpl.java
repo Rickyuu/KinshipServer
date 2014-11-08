@@ -1,5 +1,6 @@
 package com.speed.kinship.controller.impl;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -27,8 +28,9 @@ public class StateHandlerImpl implements StateHandler {
 	}
 
 	@Override
-	public State addState(User user, Date time, String content, byte[] pic) {
+	public State addState(User user, String content, byte[] pic) {
 		StateDao stateDao = new StateDaoImpl();
+		Date time = Calendar.getInstance().getTime();
 		int id = stateDao.insertState(user.getId(), time, content, pic);
 		State state = new State();
 		state.setId(id);
