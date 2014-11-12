@@ -11,6 +11,9 @@
     <insert id="insertFeedback" parameterType="Map" useGeneratedKeys="true" keyProperty="id">
         insert into Feedback (userId, content, stateId)
         values (#{userId}, #{content}, #{stateId})
+        <selectKey resultType="int" order="AFTER" keyProperty="id">  
+        	select last_insert_id() as id 
+    	</selectKey>
     </insert>
 	
 	<delete id="deleteFeedback" parameterType="int">

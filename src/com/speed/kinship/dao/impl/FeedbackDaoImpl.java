@@ -17,7 +17,8 @@ public class FeedbackDaoImpl implements FeedbackDao {
 		param.put("userId", userId);
 		param.put("content", content);
 		param.put("stateId", stateId);
-		int result = session.insert("feedbackOperation.insertFeedback", param);
+		session.insert("feedbackOperation.insertFeedback", param);
+		int result = (int) param.get("id");
 		MyBatisUtils.closeSession(session);
 		return result;
 	}

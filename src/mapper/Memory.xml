@@ -14,6 +14,9 @@
     <insert id="insertMemory" parameterType="Map" useGeneratedKeys="true" keyProperty="id">
         insert into Memory (userId, content, time)
         values (#{userId}, #{content}, #{time})
+        <selectKey resultType="int" order="AFTER" keyProperty="id">  
+        	select last_insert_id() as id 
+    	</selectKey>
     </insert>
     
     <delete id="deleteMemory" parameterType="int">

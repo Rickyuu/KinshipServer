@@ -22,7 +22,8 @@ public class ThingDaoImpl implements ThingDao {
 		param.put("time", time);
 		param.put("content", content);
 		param.put("pic", pic);
-		int result = session.insert("thingOperation.insertThing", param);
+		session.insert("thingOperation.insertThing", param);
+		int result = (int) param.get("id");
 		MyBatisUtils.closeSession(session);
 		return result;
 	}

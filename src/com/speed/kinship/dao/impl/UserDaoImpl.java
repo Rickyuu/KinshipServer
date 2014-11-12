@@ -13,7 +13,8 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public int insertUser(User user) {
 		SqlSession session = MyBatisUtils.getSqlSession();
-		int id = session.insert("userOperation.insertUser", user);
+		session.insert("userOperation.insertUser", user);
+		int id = user.getId();
 		MyBatisUtils.closeSession(session);
 		return id;
 	}

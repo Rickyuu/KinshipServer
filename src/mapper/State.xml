@@ -21,6 +21,9 @@
     <insert id="insertState" parameterType="Map" useGeneratedKeys="true" keyProperty="id">
         insert into State (userId, time, content, pic)
         values (#{userId}, #{time}, #{content}, #{pic})
+        <selectKey resultType="int" order="AFTER" keyProperty="id">  
+        	select last_insert_id() as id 
+    	</selectKey>
     </insert>
     
     <delete id="deleteState" parameterType="int">

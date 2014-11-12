@@ -21,7 +21,8 @@ public class StateDaoImpl implements StateDao {
 		param.put("content", content);
 		param.put("pic", pic);
 		SqlSession session = MyBatisUtils.getSqlSession();
-		int result = session.insert("stateOperation.insertState", param);
+		session.insert("stateOperation.insertState", param);
+		int result = (int) param.get("id");
 		MyBatisUtils.closeSession(session);
 		return result;
 	}

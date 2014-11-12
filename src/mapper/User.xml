@@ -19,6 +19,9 @@
     <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
         insert into User (userName, password, identity)
         values (#{userName}, #{password}, #{identity})
+        <selectKey resultType="int" order="AFTER" keyProperty="id">  
+        	select last_insert_id() as id 
+    	</selectKey>
     </insert>
     
 </mapper>

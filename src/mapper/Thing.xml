@@ -21,6 +21,9 @@
     <insert id="insertThing" parameterType="Map" useGeneratedKeys="true" keyProperty="id">
         insert into Thing (userId, title, time, content, pic)
         values (#{userId}, #{title}, #{time}, #{content}, #{pic})
+        <selectKey resultType="int" order="AFTER" keyProperty="id">  
+        	select last_insert_id() as id 
+    	</selectKey>
     </insert>
     
     <delete id="deleteThing" parameterType="int">

@@ -20,7 +20,8 @@ public class MemoryDaoImpl implements MemoryDao {
 		param.put("userId", userId);
 		param.put("time", time);
 		param.put("content", content);
-		int id = session.insert("memoryOperation.insertMemory", param);
+		session.insert("memoryOperation.insertMemory", param);
+		int id = (int) param.get("id");
 		MyBatisUtils.closeSession(session);
 		return id;
 	}
