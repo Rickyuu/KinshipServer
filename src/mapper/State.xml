@@ -27,7 +27,11 @@
     </insert>
     
     <delete id="deleteState" parameterType="int">
-        delete a, b from State a, Feedback b where a.id=b.stateId and a.id=#{stateId} 
+        delete from State where id=#{stateId}
+    </delete>
+    
+    <delete id="deleteStateFeedback" parameterType="int">
+        delete from Feedback where stateId=#{stateId} 
     </delete>
 	
     <resultMap type="State" id="ResultStateMap">  

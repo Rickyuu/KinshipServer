@@ -54,6 +54,7 @@ public class StateDaoImpl implements StateDao {
 	public boolean deleteState(int stateId) {
 		SqlSession session = MyBatisUtils.getSqlSession();
 		int result = session.delete("stateOperation.deleteState", stateId);
+		session.delete("stateOperation.deleteStateFeedback", stateId);
 		MyBatisUtils.closeSession(session);
 		if(result != 0) {
 			return true;
